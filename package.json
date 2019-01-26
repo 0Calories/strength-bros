@@ -1,0 +1,12 @@
+{
+  "name": "strength-bros",
+  "version": "1.0.0",
+  "description": "Multiplayer exercise minigames",
+  "main": "index.js",
+  "repository": "git@github.com:0Calories/strength-bros.git",
+  "author": "0Calories <cppanand@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^2.2.0"
+  }
+}
