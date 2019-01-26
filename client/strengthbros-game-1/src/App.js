@@ -1,21 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
+import Game from "./containers/Game";
 
-const Canvas = () => {
-  const viewBox = [
-    window.innerWidth / -2,
-    100 - window.innerHeight,
-    window.innerWidth,
-    window.innerHeight
-  ];
-  return (
-    <svg
-      id="strengthbros-game-1-canvas"
-      preserveAspectRatio="xMaxYMax none"
-      viewBox={viewBox}
-    >
-      <circle cx={0} cy={0} r={50} />
-    </svg>
-  );
-};
+class App extends Component {
+  render() {
+    return <Game />;
+  }
+}
 
-export default Canvas;
+export default App;

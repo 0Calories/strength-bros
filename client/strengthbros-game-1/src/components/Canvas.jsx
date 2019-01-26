@@ -1,16 +1,24 @@
 import React from "react";
+import Sky from "./Sky";
+import Ground from "./Ground";
+import Player from "./Player";
 
 const Canvas = () => {
-  const style = {
-    border: "1px solid black"
-  };
+  const viewBox = [
+    window.innerWidth / -2,
+    100 - window.innerHeight,
+    window.innerWidth,
+    window.innerHeight
+  ];
   return (
     <svg
-      id="strengthbros-game-1-canvas"
+      id="strength-bros-game-canvas"
       preserveAspectRatio="xMaxYMax none"
-      style={style}
+      viewBox={viewBox}
     >
-      <circle cx={0} cy={0} r={50} />
+      <Sky />
+      <Ground />
+      <Player />
     </svg>
   );
 };

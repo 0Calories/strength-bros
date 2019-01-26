@@ -1,11 +1,10 @@
-import { connect } from "react-redux";
+import React, { Component } from "react";
+import Canvas from "../components/Canvas";
 
-import App from "../App";
+class App extends Component {
+  render() {
+    return <Canvas />;
+  }
+}
 
-const mapStateToProps = state => ({
-  message: state.message
-});
-
-const Game = connect(mapStateToProps)(App);
-
-export default Game;
+export default App;
