@@ -23,10 +23,11 @@ app.use(express.static('./public'));
 route_controller(app);
 
 var server = require('http').Server(app);
+var io = require('socket.io').listen(server);
 
 // Set up the sockets
-var io = require('socket.io').listen(server);
 socket_controller(io);
 
-
 server.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+

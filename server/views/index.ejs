@@ -6,9 +6,11 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io.connect('http://localhost');
+      var socket = io.connect('http://localhost:6969');
 
-      socket.emit('connection', {'type': 'data'} );
+      socket.emit('event1', {'type': 'data'} );
+      socket.emit('event2', {'type': 'data'} );
+      
     </script>
 
   </head>
