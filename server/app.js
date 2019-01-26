@@ -5,7 +5,7 @@ const logger = require('morgan');
 const { generateId } = require('./utils/utils');
 
 let route_controller = require('./routes/route_controller');
-let socket_controller = require('./sockets/socket_controller');
+let socket_controller = require('./sockets');
 
 
 var app = express();
