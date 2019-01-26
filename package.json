@@ -7,6 +7,13 @@
   "author": "0Calories <cppanand@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.16.4",
     "socket.io": "^2.2.0"
+  },
+  "scripts": {
+    "start": "nodemon server/app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }
