@@ -1,15 +1,32 @@
-const express = require('express');
-const { generateId } = require('./utils/utils');
-
-const app = express();
 const port = 6969;
 
-app.get('/', (req, res) => res.send('Hello World!'));
+const express = require('express');
+const logger = require('morgan');
+const { generateId } = require('./utils/utils');
 
-app.post('/create', (req, res) => {
-  console.log('New room created!');
-  const sessionId = generateId();
-  res.send(`Successfully created room with ID ${sessionId}`);
-});
+let route_controller = require('./routes/route_controller');
+let socket_controller = require('./sockets/socket_controller');
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+var app = express();
+
+// Set up middleware
+app.use(logger('dev'));
+
+// set view engine
+app.set('view engine', 'ejs');
+
+// set up static routes for JS and CSS
+app.use(express.static('./public'));
+
+// Set up routes
+route_controller(app);
+
+var server = require('http').Server(app);
+
+// Set up the sockets
+var io = require('socket.io').listen(server);
+socket_controller(io);
+
+
+server.listen(port, () => console.log(`Example app listening on port ${port}!`));

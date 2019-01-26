@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Account</title>
+    <%- include partials/head.ejs %>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost');
+
+      socket.emit('connection', {'type': 'data'} );
+    </script>
+
+  </head>
+  <body>
+    
+    <div> Hello World! </div>
+
+    <%- include partials/scripts.ejs %>
+
+  </body>
+</html>
