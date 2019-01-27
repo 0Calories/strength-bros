@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import io from "socket.io-client";
 
 const socket = io.connect("138.197.166.233:6969");
