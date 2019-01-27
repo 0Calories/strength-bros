@@ -34,6 +34,13 @@ class RoomArray {
         room.participants.push(user);
     }
 
+    removeUser(room_id, user_id) {
+        // Get room to add to
+        let room = getRoom(room_id);
+
+        room.participants.filter( (user) => user.user_id !== user_id );
+    }
+
     roomExists(id) {
         var found = this.rooms.filter((room) => room.room_id === id)[0];
 
