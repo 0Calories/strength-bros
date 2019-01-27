@@ -12,3 +12,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.player {
+  height: 100;
+  width: 50;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s
+}
+
+.player--squatting {
+  height: 50;
+  width: 100;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s
+}

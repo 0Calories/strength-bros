@@ -35,6 +35,7 @@ class Player extends Component {
             y={-102}
             width={50}
             height={100}
+            className='player'
           />
         ) : (
           <rect
@@ -45,6 +46,7 @@ class Player extends Component {
             y={-51}
             width={100}
             height={50}
+            className='player--squatting'
           />
         )}
         <text
