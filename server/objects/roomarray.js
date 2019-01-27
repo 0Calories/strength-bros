@@ -44,6 +44,12 @@ class RoomArray {
     updateUserStatus(room_id, user_id, user_is_ready) {
         let room = this.getRoom(room_id);
         let user = room.participants.filter( (user) => user.user_id === user_id )[0];
+
+        if ( user == null ) {
+            console.log("error");
+            return false;
+        }
+        console.log(user);
         
         user.is_ready = user_is_ready;
 
