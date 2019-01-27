@@ -1,5 +1,6 @@
 const { RoomArray } = require('../objects/roomarray');
 const { UsersArray } = require('../objects/userarray');
+const GameReference = require('../game_reference');
 let { generateId } = require('../utils/utils.js');
 
 let rooms = new RoomArray();
@@ -10,7 +11,6 @@ module.exports = function(io) {
     io.on('connect', function (socket) {
         
         socket.on('create_room', (data) => {
-            // Data will include the 
 
             // Get a room id then send to the client
             let id = generateId();
@@ -47,6 +47,8 @@ module.exports = function(io) {
             var newUser = users.addUser( user_id, data.room_id, socket.id, data.username );
             rooms.addUser( room.room_id, newUser );
 
+            io.to(room.socket_id).emit( 'update_data', room );
+
 
             // Add the user to the array
             io.to(socket.id).emit( 'room_connection_successful', { user_id } );
@@ -58,10 +60,8 @@ module.exports = function(io) {
             // room_id - id of the room to remove user from
             // user_id - id of the user to remove
 
-            rooms.removeRoom(room_id, user_id)
+            rooms.removeUser(room_id, user_id)
 
-            // Ensure user id is in the room
-                // remove from the room
         })
 
         socket.on('set_game_type', (data) => {
@@ -70,18 +70,42 @@ module.exports = function(io) {
             // game_type - type of the game to send to clients
 
             // emit to all clients in the room the game type
+
+            let users = rooms.getUsers(data.room_id);
+
+            for ( user in users ) {
+                io.to(user.socket_id).emit('set_game_type', GameReference[data.game_type] )
+            }
+
         })
 
         socket.on('start_game', (data) => {
             // Data will contain the following:
             // room_id - id of the room to start the game on
+            // game_id - id of the type of game to be starting
             
             // emit to all clients in the room that the game is starting
+            let users = rooms.getUsers(data.room_id);
+
+            for ( user in users ) {
+                io.to(user.socket_id).emit('game_start', data.game_type)
+            }
 
             // set timer to the amount of time the game is supposed to be going for
             // based on the game type
 
-            // After timer expires emit game_over message to all clients in the room
+            setTimeout( () => {
+
+                // After timer expires emit game_over message to all clients in the room
+                let users = rooms.getUsers(data.room_id);
+
+                for ( user in users ) {
+                    io.to(user.socket_id).emit('game_over')
+                }
+
+            }, GameReference[data.game_type].game_length );
+
+            
         })
 
         socket.on('update_score', (data) => {
@@ -89,8 +113,6 @@ module.exports = function(io) {
             
         })
 
-
-        // Examples of 
         socket.on('user_action', (data) => {
             // Data will contain the following:
             // room_id - id of the room to update the score in
@@ -107,7 +129,20 @@ module.exports = function(io) {
             // Data will contain the following:
             // room_id - id of the room the users status will be updated in
             // user_id - id of the user to update their status
-            // user_status - status of the user to be updated
+            // user_is_ready - status of the user to be updated
+
+            // Update the user room socket
+            let user = users.findUser(data.user_id);
+            
+            rooms.updateUserStatus(user.room_id, user.user_id, data.user_is_ready );
+
+            if ( rooms.allReady(data.room_id) ) {
+                io.to(room.socket_id).emit('players_ready', true );
+            } else {
+                io.to(room.socket_id).emit('players_ready', false );
+            }
+            
+            io.to(room.socket_id).emit('update_data', room)
 
         })
 
