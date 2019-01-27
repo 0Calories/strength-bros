@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
+import Game from "../containers/Game";
 
 class HostGame extends Component {
-  state = { gameSelected: "" };
+  state = { gameStarted: false, gameSelected: "", allPlayersReady: false };
 
   componentWillMount() {
     const socket = io.connect("http://138.197.166.233:6969");
@@ -11,14 +12,22 @@ class HostGame extends Component {
 
     socket.on("room_data", data => {
       this.setState(() => ({
+        ...this.state,
         ...data
       }));
     });
 
     socket.on("update_data", data => {
-      console.log("data:", data);
       this.setState(() => ({
+        ...this.state,
         ...data
+      }));
+    });
+
+    socket.on("players_ready", data => {
+      this.setState(() => ({
+        ...this.state,
+        allPlayersReady: data
       }));
     });
   }
@@ -30,9 +39,19 @@ class HostGame extends Component {
     }));
   };
 
+  onStartGame = () => {
+    this.setState(() => ({
+      gameStarted: true
+    }));
+  };
+
   render() {
     if (!this.state.room_id) {
       return <div>Creating...</div>;
+    }
+
+    if (this.state.gameStarted) {
+      return <Game />;
     }
 
     const participants = this.state.participants.map(participant => (
@@ -67,6 +86,7 @@ class HostGame extends Component {
           }`}
           name="thePlank"
           onClick={this.onSelectGame}
+          disabled
         >
           The Plank
         </button>
@@ -77,6 +97,11 @@ class HostGame extends Component {
           </div>
         ) : (
           <p>No participants so far... go annoy your friends to join.</p>
+        )}
+        {this.state.allPlayersReady && (
+          <button className="btn btn-success" onClick={this.onStartGame}>
+            Start Game
+          </button>
         )}
       </div>
     );
