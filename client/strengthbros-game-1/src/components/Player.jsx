@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { ReactComponent as StandingSVG } from "../assets/standing.svg";
-import { ReactComponent as SquattingSVG } from "../assets/squatting.svg";
 
 class Player extends Component {
   state = {
@@ -35,10 +33,35 @@ class Player extends Component {
 
   render() {
     console.log(this.state.standing);
+
+    const playerStyle = {
+      fill: "#FFC0CB"
+    };
+
     if (this.state.standing) {
-      return <StandingSVG y={-50} />;
+      return (
+        <rect
+          id="player"
+          data-name="player"
+          style={playerStyle}
+          x={0}
+          y={-102}
+          width={50}
+          height={100}
+        />
+      );
     } else {
-      return <SquattingSVG y={-50} />;
+      return (
+        <rect
+          id="player"
+          data-name="player"
+          style={playerStyle}
+          x={-25}
+          y={-51}
+          width={100}
+          height={50}
+        />
+      );
     }
   }
 

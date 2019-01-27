@@ -10,7 +10,6 @@ const Ground = () => {
   };
 
   const groundWidth = 5000;
-  const groundPosition = -450;
 
   return (
     <g id="ground">
@@ -19,18 +18,16 @@ const Ground = () => {
         data-name="ground"
         style={groundStyle}
         x={groundWidth / -2}
-        y={groundPosition}
+        y={0}
         width={groundWidth}
-        height={1000}
-        transform="rotate(20, 0, 0)"
+        height={100}
       />
       <line
         x1={groundWidth / -2}
-        y1={groundPosition}
+        y1={0}
         x2={groundWidth / 2}
-        y2={groundPosition}
+        y2={0}
         style={division}
-        transform="rotate(20, 0, 0)"
       />
     </g>
   );
