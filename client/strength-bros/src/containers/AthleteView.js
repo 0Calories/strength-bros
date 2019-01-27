@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-const socket = io();
+const socket = io.connect('172.30.181.101:6969');
 
 const FLAT = 0;
 const UPRIGHT = 1;
@@ -17,8 +17,10 @@ export default class AthleteView extends React.Component {
     accY: undefined,
     accZ: undefined,
     orientation: FLAT,
-    motion: 'None'
-  };
+    motion: 'None',
+    ready: false,
+    gameStart: false
+  }
 
   // Set up accelerometer logic
   componentWillMount() {
@@ -55,8 +57,17 @@ export default class AthleteView extends React.Component {
         consistencyCounter = 0;
       }
 
-      if (consistencyCounter >= 10) {
+      if (consistencyCounter === 10) {
         this.setState({ motion: 'Squat' });
+
+        socket.emit('user_action', { 
+          room_id: 69420,
+          user_id: this.state.username,
+          game_type: 'Squat Race',
+          action_type: 'Squat',
+          action_data: undefined
+        });
+
         setTimeout(() => {
           this.setState({ motion: 'None' });
         }, 1500);
@@ -64,13 +75,30 @@ export default class AthleteView extends React.Component {
     }
   }
 
+  handleReady = () => {
+    socket.emit('user_status_update', {
+      room_id: 69420,
+      username: this.state.username,
+      user_status: 'Ready'
+    });
+    this.setState({ ready: true });
+  }
+
   render() {
     return (
       
       <div>
-        <div>
-          {this.state.username}
-        </div>
+        {!this.state.gameStart && <h2>Waiting for other players....</h2>}
+        
+        {!this.state.ready && 
+        <button 
+          className="btn btn-large btn-primary"
+          onClick={this.handleReady}
+        >
+          Ready
+        </button>
+      }
+
         <ul>
           <li>acceleration x: {this.state.accX}</li>
           <li>acceleration y: {this.state.accY}</li>

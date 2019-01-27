@@ -123,6 +123,7 @@ module.exports = function(io) {
 
             // TODO later:
             // Verify valid actions
+            console.log(`User ${data.username} just did a ${data.action_type}!`);
         })
 
         socket.on('user_status_update', (data) => {
@@ -132,7 +133,7 @@ module.exports = function(io) {
             // user_is_ready - status of the user to be updated
 
             // Update the user room socket
-            let user = users.findUser(data.user_id);
+            let user = users.getUser(data.user_id);
             
             rooms.updateUserStatus(user.room_id, user.user_id, data.user_is_ready );
 
