@@ -27,7 +27,7 @@ class Landing extends Component {
     socket.once("room_data", data => {
       console.log(data);
       let room_id = data.room_id;
-      // $('#room_id').html( "Room ID: " + data.room_id );
+      // $('#room_id').html( "Room ID: " + data.room_id ); 
     });
   };
 
