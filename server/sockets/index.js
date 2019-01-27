@@ -101,7 +101,7 @@ module.exports = function(io) {
 
             // TODO later:
             // Verify valid actions
-            console.log(`User ${data.username} just did a ${data.action}!`);
+            console.log(`User ${data.username} just did a ${data.action_type}!`);
         })
 
         socket.on('user_status_update', (data) => {
@@ -109,7 +109,7 @@ module.exports = function(io) {
             // room_id - id of the room the users status will be updated in
             // user_id - id of the user to update their status
             // user_status - status of the user to be updated
-
+            console.log(`${data.username} is ${data.user_status}`);
         })
 
         
