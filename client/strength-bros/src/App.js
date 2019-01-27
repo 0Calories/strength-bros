@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import AthleteView from './AthleteView';
+
 class App extends Component {
 
   render() {
@@ -25,6 +27,8 @@ class App extends Component {
             <button className="btn btn-large btn-primary">Create Game</button>
           </form>
         </div>
+
+        <AthleteView />
       </div>
 
       
