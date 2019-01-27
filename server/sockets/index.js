@@ -45,7 +45,7 @@ module.exports = function(io) {
             user_id = generateId();
 
             var newUser = users.addUser( user_id, data.room_id, socket.id, data.username );
-            room.addUser( newUser );
+            rooms.addUser( room.room_id, newUser );
 
 
             // Add the user to the array
@@ -57,6 +57,8 @@ module.exports = function(io) {
             // Data will contain the following:
             // room_id - id of the room to remove user from
             // user_id - id of the user to remove
+
+            rooms.removeRoom(room_id, user_id)
 
             // Ensure user id is in the room
                 // remove from the room

@@ -11,11 +11,13 @@ let consistencyCounter = 0;
 export default class AthleteView extends React.Component {
 
   state = {
+    username: '6ix9ine',
     accX: undefined,
     accY: undefined,
     accZ: undefined,
     orientation: FLAT,
-    motion: 'None'
+    motion: 'None',
+    ready: false
   };
 
   // Set up accelerometer logic
@@ -56,7 +58,11 @@ export default class AthleteView extends React.Component {
         this.setState({ motion: 'Squat' });
 
         socket.emit('user_action', { 
-          username: this.state.username, action: 'Squat' 
+          room_id: 69420,
+          username: this.state.username,
+          game_type: 'Squat Race',
+          action_type: 'Squat',
+          action_data: undefined
         });
 
         setTimeout(() => {
@@ -66,9 +72,27 @@ export default class AthleteView extends React.Component {
     }
   }
 
+  handleReady = () => {
+    socket.emit('user_status_update', {
+      room_id: 69420,
+      username: this.state.username,
+      user_status: 'Ready'
+    });
+    this.setState({ ready: true });
+  }
+
   render() {
     return (
       <div>
+        {!this.state.ready && 
+        <button 
+          className="btn btn-large btn-primary"
+          onClick={this.handleReady}
+        >
+          Ready
+        </button>
+      }
+
         <ul>
           <li>acceleration x: {this.state.accX}</li>
           <li>acceleration y: {this.state.accY}</li>
