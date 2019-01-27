@@ -15,7 +15,7 @@ class App extends Component {
       <div>
         {showWinOverlay && (
           <Overlay
-            winner={this.props.participants.find(
+            winners={this.props.participants.filter(
               participant => participant.score >= maxScore
             )}
           />

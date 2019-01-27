@@ -3,8 +3,23 @@ import Confetti from "react-confetti";
 
 class Overlay extends Component {
   render() {
-    console.log(this.props);
     const dimensions = { width: window.innerWidth, height: window.innerHeight };
+
+    const { winners } = this.props;
+
+    if (!winners) {
+      return <div />;
+    }
+
+    const winnersString =
+      winners.length === 1
+        ? winners[0].username
+        : winners.reduce((acc, winner) => {
+            if (winners.indexOf(winner) === winners.length - 1) {
+              return acc + winner.username;
+            }
+            return acc + winner.username + ", ";
+          }, "");
     return (
       <div
         style={{
@@ -16,7 +31,7 @@ class Overlay extends Component {
         }}
       >
         <h1 style={{ textAlign: "center", marginTop: "20px" }}>
-          {this.props.winner.username} wins!
+          {winnersString} wins!
         </h1>
         <Confetti {...dimensions} />
       </div>
