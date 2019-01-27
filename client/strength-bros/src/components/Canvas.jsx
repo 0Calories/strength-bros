@@ -1,4 +1,7 @@
 import React from "react";
+
+import randomColor from "randomcolor";
+
 import Sky from "./Sky";
 import Ground from "./Ground";
 import Player from "./Player";
@@ -11,14 +14,10 @@ const Canvas = () => {
     window.innerHeight
   ];
   return (
-    <svg
-      id="strength-bros-game-canvas"
-      preserveAspectRatio="xMaxYMax none"
-      viewBox={viewBox}
-    >
+    <svg id="strength-bros-game-canvas" viewBox={viewBox}>
       <Sky />
       <Ground />
-      <Player />
+      <Player position={0} color={randomColor()} />
     </svg>
   );
 };

@@ -8,7 +8,6 @@ class Player extends Component {
   handleKeyDown = e => {
     switch (e.keyCode) {
       case 32:
-        console.log("Space bar pressed");
         this.setState(() => ({
           standing: false
         }));
@@ -21,7 +20,6 @@ class Player extends Component {
   handleKeyUp = e => {
     switch (e.keyCode) {
       case 32:
-        console.log("Space bar unpressed");
         this.setState(() => ({
           standing: true
         }));
@@ -32,10 +30,10 @@ class Player extends Component {
   };
 
   render() {
-    console.log(this.state.standing);
+    const { position, color } = this.props;
 
     const playerStyle = {
-      fill: "#FFC0CB"
+      fill: color
     };
 
     if (this.state.standing) {
@@ -44,7 +42,7 @@ class Player extends Component {
           id="player"
           data-name="player"
           style={playerStyle}
-          x={0}
+          x={position}
           y={-102}
           width={50}
           height={100}
@@ -56,7 +54,7 @@ class Player extends Component {
           id="player"
           data-name="player"
           style={playerStyle}
-          x={-25}
+          x={position - 25}
           y={-51}
           width={100}
           height={50}
