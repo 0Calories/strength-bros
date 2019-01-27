@@ -17,12 +17,13 @@ export default class AthleteView extends React.Component {
     accZ: undefined,
     orientation: FLAT,
     motion: 'None',
-    ready: false
-  };
+    ready: false,
+    gameStart: false
+  }
 
   // Set up accelerometer logic
   componentWillMount() {
-
+    this.setState({username: this.props.match.params.username})
     window.ondevicemotion = (e) => {
 
       let accX = e.accelerationIncludingGravity.x.toFixed(4);
@@ -83,7 +84,10 @@ export default class AthleteView extends React.Component {
 
   render() {
     return (
+      
       <div>
+        {!this.state.gameStart && <h2>Waiting for other players....</h2>}
+        
         {!this.state.ready && 
         <button 
           className="btn btn-large btn-primary"
@@ -93,6 +97,9 @@ export default class AthleteView extends React.Component {
         </button>
       }
 
+        <div>
+          {this.state.username}
+        </div>
         <ul>
           <li>acceleration x: {this.state.accX}</li>
           <li>acceleration y: {this.state.accY}</li>
