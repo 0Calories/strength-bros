@@ -12,14 +12,43 @@
     
     <div> Hello World! </div>
 
-    <div id="acc-x"></div>
+    <div id="room_id">Room ID: </div>
+
+    <div>
+      <button onclick="createRoom()">Create</button>
+      <button onclick="joinRoom()">Join</button>
+    </div>
+
+
 
     <%- include partials/scripts.ejs %>
     <script>
-      var socket = io.connect('http://localhost:6969');
 
-      socket.emit('event1', {'type': 'data'} );
-      socket.emit('event2', {'type': 'data'} );
+      room_id = "";
+
+      function createRoom() {
+        var socket = io.connect('http://localhost:6969');
+
+        socket.emit('create_room', {'type': 'data'} );
+
+        socket.on('room_data', (data) => {
+          console.log(data);
+          room_id = data.room_id
+          $('#room_id').html( "Room ID: " + data.room_id );
+        })
+      }
+
+      function joinRoom() {
+        
+        var socket = io.connect('http://localhost:6969');
+
+        socket.emit('join_room', { 'room_id': room_id, 'username': "test" } );
+
+        socket.on('room_connection_successful', (data) => {
+          console.log(data);
+        })
+
+      }
       
     
     </script>

@@ -1,29 +1,59 @@
+const { RoomArray } = require('../objects/roomarray');
+const { UsersArray } = require('../objects/userarray');
+let { generateId } = require('../utils/utils.js');
+
+let rooms = new RoomArray();
+let users = new UsersArray();
+
 module.exports = function(io) {
 
     io.on('connect', function (socket) {
         
         socket.on('create_room', (data) => {
-            console.log(`Creating room`);
+            // Data will include the 
 
             // Get a room id then send to the client
+            let id = generateId();
 
+            socket.join(id);
+            io.to(id).emit('room_data', { "room_id": id, 'room': rooms.addRoom( id, socket.id, 4 ) } );
 
         });
 
+        socket.on('join_room', (data) => {
 
-        socket.on('add_to_room', (data) => {
+            console.log(` JOINING ROOM ${data.room_id}`); 
             // Data will contain the following:
             // room_id - id of the room to add to
-            // user_id - id of the user to add to the room
             // user_name - nickname of the user
 
-            // Ensure room isn't already full
-                // if full return error to client
-                // else add to room
+            if ( rooms.roomExists(data.room_id) === false ) {
+                io.to(socket.id).emit( "error", "Room not found" );
+                return;
+            } 
+
+            // Set the room to the one specified
+            var room = rooms.getRoom(data.room_id);
+
+            // Check to see if the room is full
+            if ( room.participants.length >= room.max_participants ) {
+                io.to(socket.id).emit( "error", "Room is full" );
+                return;
+            }
+
+            // Generate the user id to be used later
+            user_id = generateId();
+
+            var newUser = users.addUser( user_id, data.room_id, socket.id, data.username );
+            room.addUser( newUser );
+
+
+            // Add the user to the array
+            io.to(socket.id).emit( 'room_connection_successful', { user_id } );
 
         })
 
-        socket.on('remove_from_room', (data) => {
+        socket.on('leave_room', (data) => {
             // Data will contain the following:
             // room_id - id of the room to remove user from
             // user_id - id of the user to remove
@@ -56,6 +86,7 @@ module.exports = function(io) {
             // Sets users score to value specified in data
             
         })
+
 
         // Examples of 
         socket.on('user_action', (data) => {
