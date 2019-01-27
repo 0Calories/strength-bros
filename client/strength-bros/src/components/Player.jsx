@@ -2,8 +2,20 @@ import React, { Component } from "react";
 
 class Player extends Component {
   state = {
-    standing: true
+    standing: true,
+    username: undefined,
+    score: 0
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.score !== this.props.score) {
+      console.log('Score update');
+      this.setState({ standing: true });
+      setTimeout(() => {
+        this.setState({ standing: false });
+      }, 500);
+    }
+  }
 
   handleKeyDown = e => {
     switch (e.keyCode) {
@@ -36,17 +48,30 @@ class Player extends Component {
       fill: color
     };
 
+
+
     if (this.state.standing) {
       return (
-        <rect
-          id="player"
-          data-name="player"
-          style={playerStyle}
-          x={position}
-          y={-102}
-          width={50}
-          height={100}
-        />
+        <g>
+          <rect
+            id="player"
+            data-name="player"
+            style={playerStyle}
+            x={position}
+            y={-102}
+            width={50}
+            height={100}
+          >
+          </rect>
+          <text 
+            x={position}
+            y={-2}
+            fontFamily="Verdana"
+            fontSize={20}
+          >
+            {this.props.username}
+          </text>
+        </g>
       );
     } else {
       return (
