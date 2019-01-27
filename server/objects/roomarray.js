@@ -58,13 +58,11 @@ class RoomArray {
     addToUserScore(room_id, user_id, amount) {
         let room = this.getRoom(room_id);
         let user = room.participants.filter( (user) => user.user_id === user_id )[0];
-        console.log(user);
 
         if ( user == null ) {
             console.log("error");
             return false;
         }
-        console.log(user);
 
         user.score += amount;
     }
