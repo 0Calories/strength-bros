@@ -62,48 +62,56 @@ class HostGame extends Component {
     ));
 
     return (
-      <div className="container">
-        <p>Room ID: {this.state.room_id}</p>
-        <p>
-          Participants: {this.state.participants.length}/
-          {this.state.max_participants}
-        </p>
-        <p>Choose Game:</p>
-        <button
-          className={`btn ${
-            this.state.gameSelected === "squatRace"
-              ? "btn-primary"
-              : "btn-light"
-          }`}
-          name="squatRace"
-          onClick={this.onSelectGame}
-        >
-          Squat Race
-        </button>
-        <button
-          className={`btn ${
-            this.state.gameSelected === "thePlank" ? "btn-primary" : "btn-light"
-          }`}
-          name="thePlank"
-          onClick={this.onSelectGame}
-          disabled
-        >
-          The Plank
-        </button>
-        {this.state.participants.length > 0 ? (
-          <div>
-            <p>Participants:</p>
-            <ul>{participants}</ul>
+      <div className="container main">
+        <div className="">
+          <nav className="navbar navbar-light bg-light">
+            <span className="nav-title">Room ID:</span>
+            <span className="nav-title">{this.state.room_id} </span>
+          </nav>       
+        </div>
+        <div className="container text-stuff center-block">
+            <div class="participants">
+            {this.state.participants.length}/
+              {this.state.max_participants}
+            </div>
+      
+            <p>Choose Game:</p>
+            <button
+              className={`btn ${
+                this.state.gameSelected === "squatRace"
+                  ? "btn-primary"
+                  : "btn-light"
+              }`}
+              name="squatRace"
+              onClick={this.onSelectGame}
+            >
+              Squat Race
+            </button>
+            <button
+              className={`btn ${
+                this.state.gameSelected === "thePlank" ? "btn-primary" : "btn-light"
+              }`}
+              name="thePlank"
+              onClick={this.onSelectGame}
+              disabled
+            >
+              The Plank
+            </button>
+            {this.state.participants.length > 0 ? (
+              <div>
+                <p>Participants:</p>
+                <ul>{participants}</ul>
+              </div>
+            ) : (
+              <p>No participants so far... go annoy your friends to join.</p>
+            )}
+            {this.state.allPlayersReady && (
+              <button className="btn btn-success" onClick={this.onStartGame}>
+                Start Game
+              </button>
+            )}
           </div>
-        ) : (
-          <p>No participants so far... go annoy your friends to join.</p>
-        )}
-        {this.state.allPlayersReady && (
-          <button className="btn btn-success" onClick={this.onStartGame}>
-            Start Game
-          </button>
-        )}
-      </div>
+        </div>
     );
   }
 }

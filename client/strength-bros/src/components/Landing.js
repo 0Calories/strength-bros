@@ -79,7 +79,6 @@ class Landing extends Component {
             <span className="nav-title">Strength Bros.</span>
           </nav>       
         </div>
-        <div>v ENTER JOIN CODE v</div>
         <div className="gridChild container center-block">
             <form className="form container" onSubmit={this.onClickJoin}>
               <div className="form-group container">
