@@ -25,13 +25,38 @@ class RoomArray {
 
     addUser(room_id, user) {
         // Get room to add to
-        let room = getRoom(room_id);
+        let room = this.getRoom(room_id);
 
         // Check to see if user can be added
         if ( room.participants.length >= room.max_participants ) { return false }
 
         // Push the user in if there's room
         room.participants.push(user);
+    }
+
+    removeUser(room_id, user_id) {
+        // Get room to add to
+        let room = this.getRoom(room_id);
+
+        room.participants.filter( (user) => user.user_id !== user_id );
+    }
+
+    updateUserStatus(room_id, user_id, user_is_ready) {
+
+        let room = this.getRoom(room_id);
+        let user = room.participants.filter( (user) => user.user_id === user_id );
+
+        user.is_ready = user_is_ready;
+
+    }
+
+    allReady(room_id) {
+        let room = this.getRoom(room_id);
+        for ( user in room.participants ) {
+            if ( user.is_ready === false ) { return false }
+        }
+
+        return true;
     }
 
     roomExists(id) {
