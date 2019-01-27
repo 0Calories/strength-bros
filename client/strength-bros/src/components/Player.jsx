@@ -10,10 +10,11 @@ class Player extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.score !== this.props.score) {
       console.log('Score update');
-      this.setState({ standing: true });
-      setTimeout(() => {
-        this.setState({ standing: false });
-      }, 500);
+      this.setState({ standing: true }, () => {
+        setTimeout(() => {
+          this.setState({ standing: false });
+        }, 500);
+      });
     }
   }
 
@@ -49,10 +50,9 @@ class Player extends Component {
     };
 
 
-
-    if (this.state.standing) {
-      return (
-        <g>
+    return (
+      <g>
+        {this.state.standing ?
           <rect
             id="player"
             data-name="player"
@@ -63,29 +63,40 @@ class Player extends Component {
             height={100}
           >
           </rect>
-          <text 
-            x={position}
-            y={-2}
-            fontFamily="Verdana"
-            fontSize={20}
-          >
-            {this.props.username}
-          </text>
-        </g>
-      );
-    } else {
-      return (
-        <rect
-          id="player"
-          data-name="player"
-          style={playerStyle}
-          x={position - 25}
-          y={-51}
-          width={100}
-          height={50}
-        />
-      );
-    }
+
+          :
+
+          <rect
+            id="player"
+            data-name="player"
+            style={playerStyle}
+            x={position - 25}
+            y={-51}
+            width={100}
+            height={50}
+          />
+        }
+        <text
+          x={position + 25}
+          y={-110}
+          fontFamily="Verdana"
+          fontSize={20}
+          textAnchor="middle"
+        >
+          {this.props.score}
+        </text>
+        <text
+          x={position + 25}
+          y={-2}
+          fontFamily="Verdana"
+          fontSize={20}
+          textAnchor="middle"
+        >
+          {this.props.username}
+        </text>
+      </g>
+    );
+
   }
 
   componentDidMount() {
