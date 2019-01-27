@@ -4,7 +4,7 @@ class UsersArray {
     }
 
     addUser(user_id, room_id, socket_id, username) {
-        var user = { 'id': user_id, room_id, socket_id, username, 'is_ready': false, 'score': 0 };
+        var user = { user_id, room_id, socket_id, username, 'is_ready': false, 'score': 0 };
         this.users.push(user);
         return user;
     }
