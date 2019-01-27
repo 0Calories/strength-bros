@@ -24,10 +24,9 @@ class Player extends Component {
       fill: color
     };
 
-
     return (
       <g>
-        {this.state.standing ?
+        {this.state.standing ? (
           <rect
             id="player"
             data-name="player"
@@ -36,11 +35,8 @@ class Player extends Component {
             y={-102}
             width={50}
             height={100}
-          >
-          </rect>
-
-          :
-
+          />
+        ) : (
           <rect
             id="player"
             data-name="player"
@@ -50,7 +46,7 @@ class Player extends Component {
             width={100}
             height={50}
           />
-        }
+        )}
         <text
           x={position + 25}
           y={-110}
@@ -71,7 +67,6 @@ class Player extends Component {
         </text>
       </g>
     );
-
   }
 
   componentDidMount() {

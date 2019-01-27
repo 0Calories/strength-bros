@@ -33,24 +33,22 @@ class Canvas extends Component {
       window.innerWidth,
       window.innerHeight
     ];
-    console.log(this.props);
     return (
       <svg id="strength-bros-game-canvas" viewBox={viewBox}>
         <Sky />
         <Ground />
-        {this.props.participants.map((player, index) => 
-          <Player 
+        {this.props.participants.map((player, index) => (
+          <Player
             username={player.username}
             score={player.score}
             position={(index * 100) - 400}
             color={this.state.colors[index]}
             key={index}
           />
-        )}
+        ))}
       </svg>
     );
   }
-  
-};
+}
 
 export default Canvas;
