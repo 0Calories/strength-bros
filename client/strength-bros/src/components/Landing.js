@@ -10,7 +10,9 @@ class Landing extends Component {
       isJoin: false,
       clickedCreate: false,
       username: "",
-      user_id: ""
+      user_id: "",
+      failedUserIn: false,
+      failedCodeIn: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,7 +35,20 @@ class Landing extends Component {
 
   onClickJoin = e => {
     e.preventDefault();
+    if (this.state.username===""){
+      this.setState({failedUserIn: true})
 
+    }else{
+      this.setState({failedUserIn: false})
+    }
+    if (this.state.value===""){
+      this.setState({failedCodeIn:true})
+
+    }
+    else{
+      this.setState({failedCodeIn:false})
+    }
+    if (!this.state.failedCodeIn || !this.state.failedUserIn){
     const socket = io.connect("http://138.197.166.233:6969"); 
 
     socket.emit("join_room", { room_id: this.state.value, username: this.state.username });
@@ -42,7 +57,8 @@ class Landing extends Component {
       console.log(data);
       this.setState({ isJoin: true, user_id: data.user_id });
     });
-  };
+  }
+ };
 
   render() {
     if (this.state.isJoin) {
@@ -58,37 +74,48 @@ class Landing extends Component {
     }
     return (
       <div className="App">
-        <div className="container">
-          <nav className="navbar navbar-dark bg-dark">
+        <div className="gridChild container">
+          <nav className="navbar navbar-light bg-light">
             <span className="nav-title">Strength Bros.</span>
-          </nav>
-          <form className="form-inline" onSubmit={this.onClickJoin}>
-          <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Username"
-              aria-label="Search"
-              name ="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Join Game"
-              aria-label="Search"
-              name ="value"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-            <button className="btn btn btn-primary" type="submit">
-              Join
-            </button>
-          </form>
-          <form onSubmit={this.onClickCreate}>
-            <button className="btn btn-large btn-primary">Create Game</button>
-          </form>
+          </nav>       
         </div>
+        <div>v ENTER JOIN CODE v</div>
+        <div className="gridChild container center-block">
+            <form className="form container" onSubmit={this.onClickJoin}>
+              <div className="form-group container">
+              <input
+                  className="form-control mr-sm-1"
+                  type="search"
+                  placeholder="Username"
+                  aria-label="Search"
+                  name ="username"
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                />
+                <input
+                  className="form-control mr-sm-1"
+                  type="search"
+                  placeholder="Join Code"
+                  aria-label="Search"
+                  name ="value"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+            </div>
+              <div className="form-group">
+                <button className="btn btn btn-primary" type="submit">
+                Join
+              </button>
+            </div>
+            </form>
+          <div className="error">{this.state.failedCodeIn ? "Code cannot be blank": ""}</div>
+          <div className="error">{this.state.failedUserIn ? "Username cannot be blank": ""}</div>
+          </div>
+        <div  className="gridChild">
+            <form onSubmit={this.onClickCreate}>
+              <button className="btn btn-large btn btn-outline-dark">Create Game</button>
+            </form>
+          </div>
       </div>
     );
   }

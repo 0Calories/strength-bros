@@ -23,7 +23,7 @@ export default class AthleteView extends React.Component {
 
   // Set up accelerometer logic
   componentWillMount() {
-    // this.setState({username: this.props.match.params.username})
+
     this.setState({
       username: this.props.username,
       room_id: this.props.room_id

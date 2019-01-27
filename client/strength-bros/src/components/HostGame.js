@@ -43,7 +43,7 @@ class HostGame extends Component {
     ));
 
     return (
-      <div>
+      <div className="container">
         <p>Room ID: {this.state.room_id}</p>
         <p>
           Participants: {this.state.participants.length}/
