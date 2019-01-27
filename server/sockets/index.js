@@ -125,6 +125,8 @@ module.exports = function(io) {
       // Verify valid actions
       const room = rooms.getRoom(data.room_id);
 
+      console.log("User action");
+
 
       switch ( data.game_type ) {
         case 'squat':
