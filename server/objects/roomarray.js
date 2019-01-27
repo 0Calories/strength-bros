@@ -42,17 +42,20 @@ class RoomArray {
     }
 
     updateUserStatus(room_id, user_id, user_is_ready) {
-
+        console.log("Updating user status")
         let room = this.getRoom(room_id);
         let user = room.participants.filter( (user) => user.user_id === user_id );
         console.log("--------------")
         console.log(room, user);
+        console.log("--------------")
         user.is_ready = user_is_ready;
+        console.log("user now equal to ");
         console.log(user);
 
     }
 
     allReady(room_id) {
+        console.log("Checking all ready");
         console.log(room_id);
         let room = this.getRoom(room_id);
         console.log(room);
