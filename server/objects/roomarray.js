@@ -53,6 +53,12 @@ class RoomArray {
         let room = this.getRoom(room_id);
         let user = room.participants.filter( (user) => user.user_id === user_id )[0];
 
+        if ( user == null ) {
+            console.log("error");
+            return false;
+        }
+        console.log(user);
+
         user.score += amount;
     }
 
