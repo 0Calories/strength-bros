@@ -132,6 +132,8 @@ module.exports = function(io) {
 
       rooms.updateUserStatus(data.room_id, data.user_id, data.user_is_ready);
 
+      console.log("Room-", room);
+
       if (rooms.allReady(data.room_id)) {
         io.to(room.socket_id).emit("players_ready", true);
       } else {

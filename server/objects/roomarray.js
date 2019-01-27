@@ -45,8 +45,10 @@ class RoomArray {
 
         let room = this.getRoom(room_id);
         let user = room.participants.filter( (user) => user.user_id === user_id );
-
+        console.log("--------------")
+        console.log(room, user);
         user.is_ready = user_is_ready;
+        console.log(user);
 
     }
 
