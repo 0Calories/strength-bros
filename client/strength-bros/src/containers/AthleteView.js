@@ -23,9 +23,8 @@ export default class AthleteView extends React.Component {
 
   // Set up accelerometer logic
   componentWillMount() {
-
     this.setState({
-      username: this.props.username,
+      user_id: this.props.user_id,
       room_id: this.props.room_id
     });
     window.ondevicemotion = e => {
@@ -60,7 +59,7 @@ export default class AthleteView extends React.Component {
 
         socket.emit("user_action", {
           room_id: this.state.room_id,
-          user_id: this.state.username,
+          user_id: this.state.user_id,
           game_type: "squat_race",
           action_type: "squat",
           action_data: undefined
@@ -76,7 +75,7 @@ export default class AthleteView extends React.Component {
   handleReady = () => {
     socket.emit("user_status_update", {
       room_id: this.state.room_id,
-      username: this.state.username,
+      user_id: this.state.user_id, // TODO: this one
       user_is_ready: true
     });
     this.setState({ ready: true });
