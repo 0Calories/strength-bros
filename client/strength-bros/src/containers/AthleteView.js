@@ -60,7 +60,7 @@ export default class AthleteView extends React.Component {
 
         socket.emit('user_action', { 
           room_id: 69420,
-          username: this.state.username,
+          user_id: this.state.username,
           game_type: 'Squat Race',
           action_type: 'Squat',
           action_data: undefined

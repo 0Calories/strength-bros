@@ -10,25 +10,19 @@ class UsersArray {
     }
 
     removeUser(id) {
-        var removedUser = this.users.filter((user) => user.id === id)[0];
+        var removedUser = this.users.filter((user) => user.user_id === id)[0];
 
         if (removedUser) {
-            this.users = this.users.filter((user) => user.id !== id);
+            this.users = this.users.filter((user) => user.user_id !== id);
         }
 
         return removedUser;
     }
 
     getUser(id) {
-        return this.users.filter((user) => user.id === id)[0];
+        return this.users.filter((user) => user.user_id === id)[0];
     }
-
-    getUserList(room) {
-        var users = this.users.filter((user) => user.room === room);
-        var namesArray = users.map((user) => user.name);
-
-        return namesArray;
-    }
+    
 }
 
 module.exports = { UsersArray };
