@@ -30,6 +30,13 @@ class HostGame extends Component {
         allPlayersReady: data
       }));
     });
+
+    socket.on('update', data => {
+      console.log('Updata data received: ' + data); 
+      this.setState({ 
+        participants: data.participants
+       });
+    });
   }
 
   onSelectGame = e => {
@@ -51,11 +58,11 @@ class HostGame extends Component {
     }
 
     if (this.state.gameStarted) {
-      return <Game />;
+      return <Game participants={this.state.participants} />;
     }
 
-    const participants = this.state.participants.map(participant => (
-      <li>
+    const participants = this.state.participants.map((participant, index) => (
+      <li key={index}>
         {participant.username}:{" "}
         {participant.is_ready ? "Ready!" : "Not ready..."}
       </li>
