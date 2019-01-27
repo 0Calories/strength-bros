@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-const socket = io.connect('172.30.181.101:6969');
+const socket = io.connect('172.30.182.196:6969'); //TODO change
 
 const FLAT = 0;
 const UPRIGHT = 1;
@@ -11,7 +11,7 @@ let consistencyCounter = 0;
 export default class AthleteView extends React.Component {
 
   state = {
-    username: "",
+    user_id: "",
     room_id: "",
     accX: undefined,
     accY: undefined,

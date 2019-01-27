@@ -10,6 +10,7 @@ class Landing extends Component {
       isJoin: false,
       clickedCreate: false,
       username: "",
+      user_id: "",
       room_id: ""
     };
 
@@ -17,7 +18,11 @@ class Landing extends Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    const key = event.target.name;
+    const value = event.target.value;
+    this.setState(prevState => {
+      return { [key]: value };
+    });
   }
 
   onClickCreate = e => {
@@ -30,13 +35,13 @@ class Landing extends Component {
   onClickJoin = e => {
     e.preventDefault();
 
-    const socket = io.connect("http://localhost:6969");
+    const socket = io.connect("http://172.30.182.196:6969"); //TODO change
 
-    socket.emit("join_room", { room_id: this.state.value, username: "test" });
+    socket.emit("join_room", { room_id: this.state.value, username: this.state.username });
 
     socket.once("room_connection_successful", data => {
       console.log(data);
-      this.setState({ isJoin: true, username: data.user_id });
+      this.setState({ isJoin: true, user_id: data.user_id });
     });
   };
 
@@ -44,7 +49,7 @@ class Landing extends Component {
     if (this.state.isJoin) {
       return (
         <AthleteView
-          username={this.state.username}
+          username={this.state.user_id}
           room_id={this.state.room_id}
         />
       );
@@ -59,11 +64,21 @@ class Landing extends Component {
             <span className="nav-title">Strength Bros.</span>
           </nav>
           <form className="form-inline" onSubmit={this.onClickJoin}>
+          <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Username"
+              aria-label="Search"
+              name ="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
             <input
               className="form-control mr-sm-2"
               type="search"
               placeholder="Join Game"
               aria-label="Search"
+              name ="value"
               value={this.state.value}
               onChange={this.handleChange}
             />
