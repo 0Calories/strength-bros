@@ -52,7 +52,7 @@ export default class AthleteView extends React.Component {
         consistencyCounter = 0;
       }
 
-      if (consistencyCounter >= 10) {
+      if (consistencyCounter === 10) {
         this.setState({ motion: 'Squat' });
 
         socket.emit('user_action', { 

@@ -99,6 +99,7 @@ module.exports = function(io) {
 
             // TODO later:
             // Verify valid actions
+            console.log(`User ${data.username} just did a ${data.action}!`);
         })
 
         socket.on('user_status_update', (data) => {
