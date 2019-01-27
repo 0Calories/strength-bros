@@ -9,7 +9,6 @@ class Player extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.score !== this.props.score) {
-      console.log('Score update');
       this.setState({ standing: false }, () => {
         setTimeout(() => {
           this.setState({ standing: true });

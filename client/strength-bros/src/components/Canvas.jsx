@@ -6,6 +6,25 @@ import Ground from "./Ground";
 import Player from "./Player";
 
 class Canvas extends Component {
+
+  state = {
+    colors: []
+  };
+
+  componentDidMount() {
+    console.log(this.props.participants);
+    this.setState({
+      colors: this.props.participants.map(participant => randomColor())
+    });
+  }
+
+  componentWillReceiveProps() {
+    let newColor = randomColor();
+    this.setState({
+      colors: [...this.state.colors, newColor]
+    });
+  }
+
   
   render() {
     const viewBox = [
@@ -24,7 +43,7 @@ class Canvas extends Component {
             username={player.username}
             score={player.score}
             position={(index * 100) - 400}
-            color={randomColor()}
+            color={this.state.colors[index]}
             key={index}
           />
         )}
