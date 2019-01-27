@@ -109,8 +109,7 @@ module.exports = function(io) {
 
       const room = rooms.getRoom(data.room_id);
 
-      io.to(room.socket_id).emit('update', room);
-
+      io.to(room.socket_id).emit("update", room);
     });
 
     socket.on("user_action", data => {
@@ -125,20 +124,23 @@ module.exports = function(io) {
       // Verify valid actions
       const room = rooms.getRoom(data.room_id);
 
-      console.log(`${data.user_id} is performing a ${data.action_type} in room ${data.room_id}`);
+      console.log(
+        `${data.user_id} is performing a ${data.action_type} in room ${
+          data.room_id
+        }`
+      );
 
-
-      switch ( data.game_type ) {
-        case 'squat_race':
-          if ( data.action_type == "squat" ) {
+      switch (data.game_type) {
+        case "squat_race":
+          if (data.action_type == "squat") {
             rooms.addToUserScore(data.room_id, data.user_id, 1);
-            io.to(room.socket).emit('update_data');
+            io.to(room.socket).emit("update_data", room);
           }
           break;
         default:
           break;
       }
-      
+
       // console.log(`User ${data.username} just did a ${data.action_type}!`);
     });
 
