@@ -128,10 +128,9 @@ module.exports = function(io) {
       // user_is_ready - status of the user to be updated
 
       // Update the user room socket
-      let user = users.getUser(data.user_id);
       let room = rooms.getRoom(data.room_id);
 
-      rooms.updateUserStatus(user.room_id, user.user_id, data.user_is_ready);
+      rooms.updateUserStatus(data.room_id, data.user_id, data.user_is_ready);
 
       if (rooms.allReady(data.room_id)) {
         io.to(room.socket_id).emit("players_ready", true);
