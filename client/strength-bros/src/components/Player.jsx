@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import io from "socket.io-client";
-
-const socket = io.connect("138.197.166.233:6969");
 
 class Player extends Component {
   state = {
@@ -10,10 +7,14 @@ class Player extends Component {
     score: 0
   };
 
-  componentWillMount() {
-    socket.on('update_score', data => {
-
-    })
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.score !== this.props.score) {
+      console.log('Score update');
+      this.setState({ standing: true });
+      setTimeout(() => {
+        this.setState({ standing: false });
+      }, 500);
+    }
   }
 
   handleKeyDown = e => {
