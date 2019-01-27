@@ -49,6 +49,13 @@ class RoomArray {
 
     }
 
+    addToUserScore(room_id, user_id, amount) {
+        let room = this.getRoom(room_id);
+        let user = room.participants.filter( (user) => user.user_id === user_id )[0];
+
+        user.score += amount;
+    }
+
     allReady(room_id) {
         let room = this.getRoom(room_id);
         room.participants.forEach(user => {

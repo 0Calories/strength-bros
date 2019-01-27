@@ -103,8 +103,14 @@ module.exports = function(io) {
       }, GameReference[data.game_type].game_length);
     });
 
-    socket.on("update_score", data => {
-      // Sets users score to value specified in data
+    socket.on("get_updated_data", data => {
+      // Data will contain the following:
+      // room_id - id of room to fetch information
+
+      const room = rooms.getRoom(data.room_id);
+
+      io.to(room.socket_id).emit('update', room);
+
     });
 
     socket.on("user_action", data => {
@@ -117,7 +123,21 @@ module.exports = function(io) {
 
       // TODO later:
       // Verify valid actions
-      console.log(`User ${data.username} just did a ${data.action_type}!`);
+      const room = rooms.getRoom(data.room_id);
+
+
+      switch ( data.game_type ) {
+        case 'squat':
+          if ( data.action_type == "squat" ) {
+            rooms.addToUserScore(data.room_id, data.user_id, 1);
+            io.to(room.socket).emit('update_data');
+          }
+          break;
+        default:
+          break;
+      }
+      
+      // console.log(`User ${data.username} just did a ${data.action_type}!`);
     });
 
     socket.on("user_status_update", data => {
@@ -131,8 +151,6 @@ module.exports = function(io) {
       let room = rooms.getRoom(data.room_id);
 
       rooms.updateUserStatus(data.room_id, data.user_id, data.user_is_ready);
-
-      console.log("Room-", room);
 
       if (rooms.allReady(data.room_id)) {
         io.to(room.socket_id).emit("players_ready", true);
