@@ -129,7 +129,7 @@ module.exports = function(io) {
 
 
       switch ( data.game_type ) {
-        case 'squat':
+        case 'squat_race':
           if ( data.action_type == "squat" ) {
             rooms.addToUserScore(data.room_id, data.user_id, 1);
             io.to(room.socket).emit('update_data');
