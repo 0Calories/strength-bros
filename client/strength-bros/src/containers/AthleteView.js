@@ -11,6 +11,7 @@ let consistencyCounter = 0;
 export default class AthleteView extends React.Component {
 
   state = {
+    username: "",
     accX: undefined,
     accY: undefined,
     accZ: undefined,
@@ -20,7 +21,7 @@ export default class AthleteView extends React.Component {
 
   // Set up accelerometer logic
   componentWillMount() {
-
+    this.setState({username: this.props.match.params.username})
     window.ondevicemotion = (e) => {
 
       let accX = e.accelerationIncludingGravity.x.toFixed(4);
@@ -63,7 +64,11 @@ export default class AthleteView extends React.Component {
 
   render() {
     return (
+      
       <div>
+        <div>
+          {this.state.username}
+        </div>
         <ul>
           <li>acceleration x: {this.state.accX}</li>
           <li>acceleration y: {this.state.accY}</li>

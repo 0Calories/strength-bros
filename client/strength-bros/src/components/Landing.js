@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
-
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = { value: "" , isJoin: false, username: ""};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,10 +22,9 @@ class Landing extends Component {
   onCreateClick = e => {
     e.preventDefault();
     var socket = io.connect("http://localhost:6969");
-    console.log("TEST");
     socket.emit("create_room", { type: "data" });
 
-    socket.on("room_data", data => {
+    socket.once("room_data", data => {
       console.log(data);
       let room_id = data.room_id;
       // $('#room_id').html( "Room ID: " + data.room_id );
@@ -39,12 +38,16 @@ class Landing extends Component {
 
     socket.emit("join_room", { room_id: this.state.value, username: "test" });
 
-    socket.on("room_connection_successful", data => {
+    socket.once("room_connection_successful", data => {
       console.log(data);
+      this.setState({isJoin: true, username: data.user_id});
     });
   };
 
   render() {
+    if (this.state.isJoin){
+      return <Redirect to={"/athlete/"+ this.state.username} />;
+    }
     return (
       <div className="App">
         <div className="container">
@@ -60,7 +63,7 @@ class Landing extends Component {
               value={this.state.value}
               onChange={this.handleChange}
             />
-            <button className="btn btn btn-primary" type="submit">
+            <button className="btn btn btn-primary" type="submit" >
               Join
             </button>
           </form>
