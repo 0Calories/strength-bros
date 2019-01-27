@@ -21,7 +21,7 @@ class App extends Component {
             </button>
           </form>
           <form>
-            <button class="btn btn-large btn-primary">Create Game</button>
+            <button className="btn btn-large btn-primary">Create Game</button>
           </form>
         </div>
       </div>
