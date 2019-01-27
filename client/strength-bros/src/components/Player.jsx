@@ -10,37 +10,13 @@ class Player extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.score !== this.props.score) {
       console.log('Score update');
-      this.setState({ standing: true }, () => {
+      this.setState({ standing: false }, () => {
         setTimeout(() => {
-          this.setState({ standing: false });
+          this.setState({ standing: true });
         }, 500);
       });
     }
   }
-
-  handleKeyDown = e => {
-    switch (e.keyCode) {
-      case 32:
-        this.setState(() => ({
-          standing: false
-        }));
-        break;
-      default:
-        return;
-    }
-  };
-
-  handleKeyUp = e => {
-    switch (e.keyCode) {
-      case 32:
-        this.setState(() => ({
-          standing: true
-        }));
-        break;
-      default:
-        return;
-    }
-  };
 
   render() {
     const { position, color } = this.props;

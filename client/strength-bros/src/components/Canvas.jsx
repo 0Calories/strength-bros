@@ -23,7 +23,7 @@ class Canvas extends Component {
           <Player 
             username={player.username}
             score={player.score}
-            position={index * 100}
+            position={(index * 100) - 400}
             color={randomColor()}
             key={index}
           />
