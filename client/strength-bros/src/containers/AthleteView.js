@@ -83,8 +83,18 @@ export default class AthleteView extends React.Component {
 
   render() {
     return (
-      <div>
-        {!this.state.gameStart && <h2>Waiting for other players....</h2>}
+      <div className="athlete-view">
+
+        {/* {
+        <ul>
+          <li>acceleration x: {this.state.accX}</li>
+          <li>acceleration y: {this.state.accY}</li>
+          <li>acceleration z: {this.state.accZ}</li>
+        </ul>
+        } */}
+
+        {this.state.motion === "Squat" && <h1>Nice Squat!</h1>}
+        {this.state.motion === "None" && <h1>No Motion</h1>}
 
         {!this.state.ready && (
           <button
@@ -94,15 +104,6 @@ export default class AthleteView extends React.Component {
             Ready
           </button>
         )}
-
-        <ul>
-          <li>acceleration x: {this.state.accX}</li>
-          <li>acceleration y: {this.state.accY}</li>
-          <li>acceleration z: {this.state.accZ}</li>
-        </ul>
-
-        {this.state.motion === "Squat" && <h1>Nice Squat!</h1>}
-        {this.state.motion === "None" && <h1>No Motion</h1>}
       </div>
     );
   }
