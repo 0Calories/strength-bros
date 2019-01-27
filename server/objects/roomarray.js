@@ -66,9 +66,9 @@ class RoomArray {
     }
 
     roomExists(id) {
-        var found = this.rooms.filter((room) => room.room_id === id)[0];
+        var found = this.rooms.filter((room) => room.room_id === id);
 
-        if ( found !== null ) {
+        if ( found.length > 0 ) {
             return true
         }
 
