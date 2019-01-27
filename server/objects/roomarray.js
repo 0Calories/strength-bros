@@ -25,7 +25,7 @@ class RoomArray {
 
     addUser(room_id, user) {
         // Get room to add to
-        let room = getRoom(room_id);
+        let room = this.getRoom(room_id);
 
         // Check to see if user can be added
         if ( room.participants.length >= room.max_participants ) { return false }
