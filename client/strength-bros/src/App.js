@@ -11,8 +11,15 @@ class App extends Component {
             <span className="nav-title">Strength Bros.</span>
           </nav>
           <form className="form-inline">
-            <input className="form-control mr-sm-2" type="search" placeholder="Join Game" aria-label="Search"></input>
-            <button className="btn btn btn-primary" type="submit">Join</button>
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Join Game"
+              aria-label="Search"
+            />
+            <button className="btn btn btn-primary" type="submit">
+              Join
+            </button>
           </form>
           <form>
             <button className="btn btn-large btn-primary">Create Game</button>

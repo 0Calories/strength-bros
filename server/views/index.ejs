@@ -5,18 +5,23 @@
     <%- include partials/head.ejs %>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io.connect('http://localhost');
-
-      socket.emit('connection', {'type': 'data'} );
-    </script>
+    
 
   </head>
   <body>
     
     <div> Hello World! </div>
 
-    <%- include partials/scripts.ejs %>
+    <div id="acc-x"></div>
 
+    <%- include partials/scripts.ejs %>
+    <script>
+      var socket = io.connect('http://localhost:6969');
+
+      socket.emit('event1', {'type': 'data'} );
+      socket.emit('event2', {'type': 'data'} );
+      
+    
+    </script>
   </body>
 </html>

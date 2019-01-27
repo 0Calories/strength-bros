@@ -5,7 +5,7 @@ const express = require('express');
 const { generateId } = require('./utils/utils');
 
 let route_controller = require('./routes/route_controller');
-let socket_controller = require('./sockets/socket_controller');
+let socket_controller = require('./sockets');
 
 
 var app = express();
@@ -23,10 +23,11 @@ app.use(express.static('./public'));
 route_controller(app);
 
 var server = require('http').Server(app);
+var io = require('socket.io').listen(server);
 
 // Set up the sockets
-var io = require('socket.io').listen(server);
 socket_controller(io);
 
-
 server.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+
