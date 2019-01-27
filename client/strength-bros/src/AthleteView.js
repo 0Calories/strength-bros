@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-const socket = io();
+const socket = io.connect('172.30.181.101:6969');
 
 const FLAT = 0;
 const UPRIGHT = 1;
@@ -54,6 +54,11 @@ export default class AthleteView extends React.Component {
 
       if (consistencyCounter >= 10) {
         this.setState({ motion: 'Squat' });
+
+        socket.emit('user_action', { 
+          username: this.state.username, action: 'Squat' 
+        });
+
         setTimeout(() => {
           this.setState({ motion: 'None' });
         }, 1500);
