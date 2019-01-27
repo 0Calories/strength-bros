@@ -18,30 +18,6 @@ class Player extends Component {
     }
   }
 
-  handleKeyDown = e => {
-    switch (e.keyCode) {
-      case 32:
-        this.setState(() => ({
-          standing: false
-        }));
-        break;
-      default:
-        return;
-    }
-  };
-
-  handleKeyUp = e => {
-    switch (e.keyCode) {
-      case 32:
-        this.setState(() => ({
-          standing: true
-        }));
-        break;
-      default:
-        return;
-    }
-  };
-
   render() {
     const { position, color } = this.props;
 

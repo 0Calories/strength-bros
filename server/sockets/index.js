@@ -13,7 +13,7 @@ module.exports = function(io) {
       let id = generateId();
 
       socket.join(id);
-      io.to(id).emit("room_data", { ...rooms.addRoom(id, socket.id, 4) });
+      io.to(id).emit("room_data", { ...rooms.addRoom(id, socket.id, 8) });
     });
 
     socket.on("join_room", data => {
