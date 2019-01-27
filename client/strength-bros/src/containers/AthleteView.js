@@ -7,7 +7,7 @@ const FLAT = 0;
 const UPRIGHT = 1;
 
 let consistencyCounter = 0;
- 
+
 export default class AthleteView extends React.Component {
 
   state = {
