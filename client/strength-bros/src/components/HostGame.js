@@ -5,7 +5,7 @@ class HostGame extends Component {
   state = { gameSelected: "" };
 
   componentWillMount() {
-    const socket = io.connect("http://172.30.182.196:6969"); //TODO change
+    const socket = io.connect("http://138.197.166.233:6969"); 
 
     socket.emit("create_room", { type: "data" });
 
@@ -16,6 +16,7 @@ class HostGame extends Component {
     });
 
     socket.on("update_data", data => {
+      console.log("data:", data)
       this.setState(() => ({
         ...data
       }));

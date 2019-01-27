@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-const socket = io.connect('172.30.182.196:6969'); //TODO change
+const socket = io.connect('138.197.166.233:6969'); 
 
 const FLAT = 0;
 const UPRIGHT = 1;
@@ -61,7 +61,7 @@ export default class AthleteView extends React.Component {
         this.setState({ motion: 'Squat' });
 
         socket.emit('user_action', { 
-          room_id: 69420,
+          room_id: this.state.room_id,
           user_id: this.state.username,
           game_type: 'Squat Race',
           action_type: 'Squat',
@@ -77,7 +77,7 @@ export default class AthleteView extends React.Component {
 
   handleReady = () => {
     socket.emit('user_status_update', {
-      room_id: 69420,
+      room_id: this.state.room_id,
       username: this.state.username,
       user_status: 'Ready'
     });

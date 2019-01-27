@@ -121,6 +121,7 @@ module.exports = function(io) {
     });
 
     socket.on("user_status_update", data => {
+      console.log(data);
       // Data will contain the following:
       // room_id - id of the room the users status will be updated in
       // user_id - id of the user to update their status
@@ -128,6 +129,7 @@ module.exports = function(io) {
 
       // Update the user room socket
       let user = users.getUser(data.user_id);
+      let room = rooms.getRoom(data.room_id);
 
       rooms.updateUserStatus(user.room_id, user.user_id, data.user_is_ready);
 

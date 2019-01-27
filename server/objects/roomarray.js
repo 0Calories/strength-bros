@@ -51,10 +51,12 @@ class RoomArray {
     }
 
     allReady(room_id) {
+        console.log(room_id);
         let room = this.getRoom(room_id);
-        for ( user in room.participants ) {
+        console.log(room);
+        room.participants.forEach(user => {
             if ( user.is_ready === false ) { return false }
-        }
+        });
 
         return true;
     }

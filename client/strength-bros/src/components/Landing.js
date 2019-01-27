@@ -10,8 +10,7 @@ class Landing extends Component {
       isJoin: false,
       clickedCreate: false,
       username: "",
-      user_id: "",
-      room_id: ""
+      user_id: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,7 +34,7 @@ class Landing extends Component {
   onClickJoin = e => {
     e.preventDefault();
 
-    const socket = io.connect("http://172.30.182.196:6969"); //TODO change
+    const socket = io.connect("http://138.197.166.233:6969"); 
 
     socket.emit("join_room", { room_id: this.state.value, username: this.state.username });
 
@@ -50,7 +49,7 @@ class Landing extends Component {
       return (
         <AthleteView
           username={this.state.user_id}
-          room_id={this.state.room_id}
+          room_id={this.state.value}
         />
       );
     }
