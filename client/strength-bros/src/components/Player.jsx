@@ -36,31 +36,33 @@ class Player extends Component {
       fill: color
     };
 
-    if (this.state.standing) {
-      return (
-        <rect
-          id="player"
-          data-name="player"
-          style={playerStyle}
-          x={position}
-          y={-102}
-          width={50}
-          height={100}
-        />
-      );
-    } else {
-      return (
-        <rect
-          id="player"
-          data-name="player"
-          style={playerStyle}
-          x={position - 25}
-          y={-51}
-          width={100}
-          height={50}
-        />
-      );
-    }
+    return (
+      <div>
+        <text>Test</text>
+        {
+          this.state.standing ?
+            <rect
+              id="player"
+              data-name="player"
+              style={playerStyle}
+              x={position}
+              y={-102}
+              width={50}
+              height={100}
+            />
+            :
+            <rect
+              id="player"
+              data-name="player"
+              style={playerStyle}
+              x={position - 25}
+              y={-51}
+              width={100}
+              height={50}
+            />
+        }
+      </div>
+    );
   }
 
   componentDidMount() {
