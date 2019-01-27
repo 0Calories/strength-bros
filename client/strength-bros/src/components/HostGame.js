@@ -30,13 +30,13 @@ class HostGame extends Component {
   };
 
   render() {
-    if (!this.state.room) {
+    if (!this.state.room_id) {
       return <div>Creating...</div>;
     }
 
-    const participants = this.state.room.participants.map(participant => (
+    const participants = this.state.participants.map(participant => (
       <li>
-        {participant.username}:{" "}
+        {participant.username}:
         {participant.is_ready ? "Ready!" : "Not ready..."}
       </li>
     ));
@@ -45,8 +45,8 @@ class HostGame extends Component {
       <div>
         <p>Room ID: {this.state.room_id}</p>
         <p>
-          Participants: {this.state.room.participants.length}/
-          {this.state.room.max_participants}
+          Participants: {this.state.participants.length}/
+          {this.state.max_participants}
         </p>
         <p>Choose Game:</p>
         <button
@@ -69,7 +69,7 @@ class HostGame extends Component {
         >
           The Plank
         </button>
-        {this.state.room.participants.length > 0 ? (
+        {this.state.participants.length > 0 ? (
           <div>
             <p>Participants:</p>
             <ul>{participants}</ul>
