@@ -3,7 +3,7 @@ import Canvas from "../components/Canvas";
 
 class App extends Component {
   render() {
-    return <Canvas />;
+    return <Canvas participants={this.props.participants} />;
   }
 }
 
