@@ -4,7 +4,7 @@ import Overlay from "../components/Overlay";
 
 class App extends Component {
   render() {
-    const maxScore = 5;
+    const maxScore = 20;
     let showWinOverlay =
       this.props.participants &&
       !this.props.participants.every(
