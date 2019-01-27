@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import AthleteView from "../containers/AthleteView";
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" , isJoin: false, username: ""};
+    this.state = { value: "" , isJoin: false, username: "", room_id: ""};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +27,7 @@ class Landing extends Component {
 
     socket.once("room_data", data => {
       console.log(data);
-      let room_id = data.room_id;
+      this.setState({room_id: data.room_id});
       // $('#room_id').html( "Room ID: " + data.room_id ); 
     });
   };
@@ -46,7 +47,7 @@ class Landing extends Component {
 
   render() {
     if (this.state.isJoin){
-      return <Redirect to={"/athlete/"+ this.state.username} />;
+      return (<AthleteView username={this.state.username} room_id={this.state.room_id}></AthleteView>);
     }
     return (
       <div className="App">
