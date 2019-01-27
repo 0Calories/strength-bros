@@ -49,6 +49,19 @@ class RoomArray {
 
     }
 
+    addToUserScore(room_id, user_id, amount) {
+        let room = this.getRoom(room_id);
+        let user = room.participants.filter( (user) => user.user_id === user_id )[0];
+
+        if ( user == null ) {
+            console.log("error");
+            return false;
+        }
+        console.log(user);
+
+        user.score += amount;
+    }
+
     allReady(room_id) {
         let room = this.getRoom(room_id);
         room.participants.forEach(user => {
@@ -59,9 +72,9 @@ class RoomArray {
     }
 
     roomExists(id) {
-        var found = this.rooms.filter((room) => room.room_id === id)[0];
+        var found = this.rooms.filter((room) => room.room_id === id);
 
-        if ( found !== null ) {
+        if ( found.length > 0 ) {
             return true
         }
 

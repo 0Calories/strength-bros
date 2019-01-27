@@ -1,6 +1,6 @@
 .App {
   display: flex;
-  height: 100vh;
+  height: 90vh;
   flex-direction: column;
   justify-content: space-between;
   margin: auto;
@@ -17,4 +17,13 @@
   font-size: 1.5em;
   text-align: center;
   color: grey;
+}
+.text-stuff{
+  text-align: center;
+}
+.main{
+  height: 100vh;
+}
+.participants{
+  font-size: 2em;
 }
