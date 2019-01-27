@@ -125,7 +125,7 @@ module.exports = function(io) {
       // Verify valid actions
       const room = rooms.getRoom(data.room_id);
 
-      console.log("User action");
+      console.log(`${data.user_id} is performing a ${data.action_type} in room ${data.room_id}`);
 
 
       switch ( data.game_type ) {
