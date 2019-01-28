@@ -46,7 +46,7 @@ class Landing extends Component {
       this.setState({ failedCodeIn: false });
     }
     if (!this.state.failedCodeIn || !this.state.failedUserIn) {
-      const socket = io.connect("http://138.197.166.233:6969");
+      const socket = io.connect("https://strength-bros-230022.appspot.com/");
 
       socket.emit("join_room", {
         room_id: this.state.value,
