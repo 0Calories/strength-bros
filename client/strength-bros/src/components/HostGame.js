@@ -6,7 +6,7 @@ class HostGame extends Component {
   state = { gameStarted: false, gameSelected: "", allPlayersReady: false };
 
   componentWillMount() {
-    const socket = io.connect("https://strength-bros-230022.appspot.com/");
+    const socket = io.connect("https://strength-bros.appspot.com/");
 
     socket.emit("create_room", { type: "data" });
 

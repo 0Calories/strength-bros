@@ -1,7 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 
-const socket = io.connect("https://strength-bros-230022.appspot.com/");
+const socket = io.connect("https://strength-bros.appspot.com/");
 
 const FLAT = 0;
 const UPRIGHT = 1;
